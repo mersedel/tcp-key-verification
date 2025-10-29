@@ -36,7 +36,7 @@ int main()
 	 char key [17],final_key[33];
 
 	 int operation;
-	 int wrong_operation = 1;
+	 int choose_menu = 1;
 
 	
 	 do
@@ -57,28 +57,31 @@ int main()
 		 switch (operation)
 		 {
 		 case 1:
+			 choose_menu = 0;
 			 code = 1;
 			 printf("Введи ключ\n");
 			 scanf("%16s", key);
-
-			 wrong_operation = 0;
+			 choose_menu = 1;
 			 // відправити на сервер key[16]
 			 break;
 
 		 case 2:
+			 choose_menu = 0;
 			 code = 0;
 			 printf("ключ:");
-
-			 wrong_operation = 0;
+			 getchar();
+			 getchar();
+			 choose_menu = 1;
 			 //відправка на сервер коду щоб отримати пароль 
 
 			 break;
 		 case 3:
+			 choose_menu = 0;
 			 code = 2;
 			 printf("ключ:\n");
 			 scanf("%32s", final_key);
-
-			 wrong_operation = 0;
+			 getchar();
+			 choose_menu = 1;
 			 //відправка на сервер коду
 
 			 break;
@@ -86,7 +89,7 @@ int main()
 		
 
 		 }
-	 } while (wrong_operation == 1);
+	 } while (choose_menu == 1);
  }
  void clear()
  {
