@@ -36,7 +36,7 @@ int main()
 	 char key [17],final_key[33];
 
 	 int operation;
-	 int choose_menu = 1;
+	 
 
 	
 	 clear();
@@ -91,6 +91,13 @@ int main()
  void clear()
  {
 	 system("cls");
+
+	 int valid_shoice = 1;
+
+	 while (valid_shoice == 1)
+	 {
+		 valid_shoice = 0;
+	 }
  }
  // code = 0 відправка на сервер коду щоб отримати пароль 
  // code = 1 відправка масиву на сервер 
