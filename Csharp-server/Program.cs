@@ -30,13 +30,13 @@ namespace Csharp_server
             NetworkStream stream = client.GetStream();
 
             string serverKey = GenerateRandomKey();
-            await SendKey(stream, serverKey);
+            await SendKeyAsync(stream, serverKey);
 
-            string clientKey = await ReceiveClientKey(stream);
+            string clientKey = await ReceiveClientKeyAsync(stream);
 
             Console.WriteLine($"Key from client: {clientKey}");
 
-            SendResult(stream, serverKey, clientKey);
+            await SendResultAsync(stream, serverKey, clientKey);
 
             CloseConnections(stream, client, server);
         }
@@ -65,7 +65,7 @@ namespace Csharp_server
             return client;
         }
         
-        static async Task SendKey(NetworkStream stream, string key)
+        static async Task SendKeyAsync(NetworkStream stream, string key)
         {
             byte[] sendBuffer = Encoding.UTF8.GetBytes(key);
             await stream.WriteAsync(sendBuffer, 0, sendBuffer.Length);
@@ -75,7 +75,7 @@ namespace Csharp_server
             Console.WriteLine($"Key sent to client: {key}");
         }
         
-        static async Task<string> ReceiveClientKey(NetworkStream stream)
+        static async Task<string> ReceiveClientKeyAsync(NetworkStream stream)
         {
             byte[] readBuffer = new byte[1024];
 
@@ -98,14 +98,17 @@ namespace Csharp_server
             return clientKey;
         }
         
-        static void SendResult(NetworkStream stream, string serverKey, string clientKey)
+        static async Task SendResultAsync(NetworkStream stream, string serverKey, string clientKey)
         {
-            byte response = (byte)(serverKey == clientKey ? 1 : 0);
-            stream.WriteByte(response);
+            string result = (serverKey == clientKey) ? "1" : "0";
+            byte[] sendBuffer = Encoding.UTF8.GetBytes(result);
+
+            await stream.WriteAsync(sendBuffer, 0, sendBuffer.Length);
+            await stream.FlushAsync();
 
             Console.WriteLine(serverKey == clientKey
                 ? "Keys match — client verified!"
-                : "Keys mismatch!");
+                : "Keys mismatch!"); 
         }
         
         static void CloseConnections(NetworkStream stream, TcpClient client, TcpListener server)
