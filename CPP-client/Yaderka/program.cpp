@@ -16,7 +16,6 @@ void messageFromServer();
 void resultmassage();
 void closeSock();
 
-char result_code;
 
 string key;
 
@@ -32,10 +31,6 @@ int main()
 
 	chooseAction();
 
-	
-	
-	
-	
 	return 0;
 }
 
@@ -49,7 +44,6 @@ int main()
  {
 	 char action;
 	 bool valid_choise = true;
-
 
 	 do
 	 {
