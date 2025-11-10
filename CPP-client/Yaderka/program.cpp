@@ -78,6 +78,7 @@ int main()
 		
 			 getchar();
 			 getchar();
+			 clear();
 			 break;
 
 		 }
@@ -133,7 +134,7 @@ int main()
  void resultmassage()
  {
 	 char buffer[1024] = {};
-	 recv(id, buffer, sizeof(buffer), 0); 
+	 recv(id, buffer, sizeof(buffer), 0);
 
 	 switch (*buffer)
 	 {
