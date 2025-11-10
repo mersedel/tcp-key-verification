@@ -1,21 +1,41 @@
-#include <iostream>
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#include <winsock2.h>
 #include <windows.h>
-#include <string>
+#include <iostream>
+#pragma comment(lib, "ws2_32.lib")
+
+
+
 
 using namespace std;
 
 void language();
 void chooseAction();
 void clear();
+void startsock();
+void connectToServer();
+void sendMessage();
+void messageFromServer();
+void closeSock();
 
 
 string key;
 
+SOCKET id;
+
 int main()
 {
+	
+	startsock();
+	connectToServer();
+
 	language();
 
 	chooseAction();
+
+	closeSock();
+	
+	
 	
 	return 0;
 }
@@ -46,8 +66,8 @@ int main()
 		 switch (action)
 		 {
 		 case '1':
-			 cout << "наш ключ";
-			 
+			 cout << "наш ключ :";
+			 messageFromServer();
 			 getchar();
 			 getchar();
 
@@ -56,7 +76,10 @@ int main()
 			 break;
 
 		 case '2':
+			 cout << "Ключ:";
 			 cin >> key;
+
+			 sendMessage();
 
 			 clear();
 
@@ -68,7 +91,48 @@ int main()
 
  }
 
+
  void clear()
  {
 	 system("cls");
  }
+
+ void startsock()
+ {
+	 WSADATA box;
+
+	 WSAStartup(MAKEWORD(2, 2), &box);
+
+ }
+
+ void connectToServer()
+ {
+	  id = socket(AF_INET, SOCK_STREAM, 0);
+
+	 sockaddr_in server;
+
+	 server.sin_family = AF_INET;
+	 server.sin_port = htons(8686);                   // порт 
+	 server.sin_addr.s_addr = inet_addr("192.168.1.77"); // IP 
+
+	 connect(id, (sockaddr*)&server, sizeof(server));
+ }
+
+ void sendMessage()
+ {
+	 send(id, key.c_str(), (int)key.size(), 0);
+ }
+
+ void messageFromServer()
+ {
+	 char buffer[1024] = {};
+	 recv(id, buffer, sizeof(buffer), 0);
+	 cout  << buffer;
+ }
+
+ void closeSock()
+ {
+	 closesocket(id);
+	 WSACleanup();
+ }
+
