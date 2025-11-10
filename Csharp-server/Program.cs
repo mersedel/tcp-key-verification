@@ -34,7 +34,7 @@ namespace Csharp_server
 
             string clientKey = await ReceiveClientKeyAsync(stream);
 
-            Console.WriteLine($"Key from client: {clientKey}");
+            Console.WriteLine($"\n\nKey from client: {clientKey}");
 
             await SendResultAsync(stream, serverKey, clientKey);
 
@@ -82,7 +82,7 @@ namespace Csharp_server
             while (!stream.DataAvailable)
             {
                 Console.Clear();
-                Console.WriteLine("Waiting for key sending from client");
+                Console.Write("Waiting for key sending from client");
                 await Task.Delay(500);
                 Console.Write(".");
                 await Task.Delay(500);
@@ -107,8 +107,8 @@ namespace Csharp_server
             await stream.FlushAsync();
 
             Console.WriteLine(serverKey == clientKey
-                ? "Keys match — client verified!"
-                : "Keys mismatch!"); 
+                ? "\nKeys match — client verified!"
+                : "\nKeys mismatch!");
         }
         
         static void CloseConnections(NetworkStream stream, TcpClient client, TcpListener server)
