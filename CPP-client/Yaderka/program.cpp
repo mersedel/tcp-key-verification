@@ -4,9 +4,6 @@
 #include <iostream>
 #pragma comment(lib, "ws2_32.lib")
 
-
-
-
 using namespace std;
 
 void language();
@@ -16,8 +13,10 @@ void startsock();
 void connectToServer();
 void sendMessage();
 void messageFromServer();
+void resultmassage();
 void closeSock();
 
+char result_code;
 
 string key;
 
@@ -33,7 +32,7 @@ int main()
 
 	chooseAction();
 
-	closeSock();
+	
 	
 	
 	
@@ -56,9 +55,9 @@ int main()
 	 {
 		 cout << "Nucler client\n";
 		 cout << "--------------\n\n";
-		 cout << "вибери дію\n";
-		 cout << "1.отримати ключ\n";
-		 cout << "2.відправити ключ\n";
+		 cout << "Choose action\n";
+		 cout << "1. Get key\n";
+		 cout << "2. Validate key\n";
 
 		 cin >> action;
 
@@ -66,7 +65,7 @@ int main()
 		 switch (action)
 		 {
 		 case '1':
-			 cout << "наш ключ :";
+			 cout << "key: ";
 			 messageFromServer();
 			 getchar();
 			 getchar();
@@ -76,13 +75,15 @@ int main()
 			 break;
 
 		 case '2':
-			 cout << "Ключ:";
+			 cout << "input key:";
 			 cin >> key;
 
 			 sendMessage();
-
-			 clear();
-
+			 cout << endl;
+			 resultmassage();
+		
+			 getchar();
+			 getchar();
 			 break;
 
 		 }
@@ -90,7 +91,6 @@ int main()
 	 
 
  }
-
 
  void clear()
  {
@@ -112,7 +112,7 @@ int main()
 	 sockaddr_in server;
 
 	 server.sin_family = AF_INET;
-	 server.sin_port = htons(8686);                   // порт 
+	 server.sin_port = htons(8686);                   // port
 	 server.sin_addr.s_addr = inet_addr("192.168.1.77"); // IP 
 
 	 connect(id, (sockaddr*)&server, sizeof(server));
@@ -136,3 +136,19 @@ int main()
 	 WSACleanup();
  }
 
+ void resultmassage()
+ {
+	 char buffer[1024] = {};
+	 recv(id, buffer, sizeof(buffer), 0); 
+
+	 switch (*buffer)
+	 {
+		 case '0':
+			 cout << "Validation failed";
+			 break;
+
+		 case '1':
+			 cout << "Validation succesful";
+			 break;
+	 }
+ }
