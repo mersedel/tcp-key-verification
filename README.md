@@ -42,7 +42,7 @@ If the keys match — the client is successfully verified.
 
 ---
 
-4. Technical Details
+### 4. Technical Details
 
 Language: C# (.NET 8)
 
