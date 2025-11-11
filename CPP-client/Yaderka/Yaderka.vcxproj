@@ -24,6 +24,7 @@
     <ProjectGuid>{d4e86257-9dee-4635-a13f-e682cf407103}</ProjectGuid>
     <RootNamespace>Yaderka</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Key_client</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
