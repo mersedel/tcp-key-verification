@@ -83,8 +83,6 @@ int main()
 
 		 }
 	 } while (valid_choise);
-	 
-
  }
 
  void clear()
@@ -107,7 +105,7 @@ int main()
 	 sockaddr_in server;
 
 	 server.sin_family = AF_INET;
-	 server.sin_port = htons(8686);                   // port
+	 server.sin_port = htons(8686);                       // port
 	 server.sin_addr.s_addr = inet_addr("192.168.1.77"); // IP 
 
 	 connect(id, (sockaddr*)&server, sizeof(server));
