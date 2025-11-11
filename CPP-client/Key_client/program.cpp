@@ -9,11 +9,11 @@ using namespace std;
 void language();
 void chooseAction();
 void clear();
-void startsock();
+void startSock();
 void connectToServer();
 void sendMessage();
 void messageFromServer();
-void resultmassage();
+void resultMessage();
 void closeSock();
 
 
@@ -24,7 +24,7 @@ SOCKET id;
 int main()
 {
 	
-	startsock();
+	startSock();
 	connectToServer();
 
 	language();
@@ -47,7 +47,7 @@ int main()
 
 	 do
 	 {
-		 cout << "Nucler client\n";
+		 cout << "Key client\n";
 		 cout << "--------------\n\n";
 		 cout << "Choose action\n";
 		 cout << "1. Get key\n";
@@ -74,7 +74,7 @@ int main()
 
 			 sendMessage();
 			 cout << endl;
-			 resultmassage();
+			 resultMessage();
 		
 			 getchar();
 			 getchar();
@@ -89,7 +89,7 @@ int main()
 	 system("cls");
  }
 
- void startsock()
+ void startSock()
  {
 	 WSADATA box;
 
@@ -128,7 +128,7 @@ int main()
 	 WSACleanup();
  }
 
- void resultmassage()
+ void resultMessage()
  {
 	 char buffer[1024] = {};
 	 recv(id, buffer, sizeof(buffer), 0); 
